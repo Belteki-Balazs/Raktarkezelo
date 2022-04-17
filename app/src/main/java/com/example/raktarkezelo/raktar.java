@@ -20,35 +20,13 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 public class raktar extends AppCompatActivity {
 ListView listView;
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu,menu);
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId())
-        {
-            case R.id.raktar:
-                setContentView(R.layout.activity_main);
-                break;
-            case R.id.termek:
-                setContentView(R.layout.activity_main_2);
-                break;
 
 
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
 
     @Override
@@ -56,6 +34,7 @@ ListView listView;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         listView = (ListView) findViewById(R.id.listView);
+
         getJSON("http://192.168.0.80/storager/raktar.php");
 
     }
@@ -80,6 +59,8 @@ ListView listView;
                     e.printStackTrace();
                 }
             }
+
+
 
             @Override
             protected String doInBackground(Void... voids) {
@@ -128,23 +109,17 @@ ListView listView;
 
     private void loadIntoListView(String json) throws JSONException {
         JSONArray jsonArray = new JSONArray(json);
-
         String[] storages = new String[jsonArray.length()];
 
         for (int i = 0; i < jsonArray.length(); i++) {
-
             JSONObject obj = jsonArray.getJSONObject(i);
-
-            storages[i] = obj.getString("name");
+            storages[i] = obj.getString("id");
         }
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, storages);
-
         listView.setAdapter(arrayAdapter);
 
 
     }
-
-
 }
 
