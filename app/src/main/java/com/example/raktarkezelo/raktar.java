@@ -113,7 +113,7 @@ ListView listView;
 
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject obj = jsonArray.getJSONObject(i);
-            storages[i] = obj.getString("id");
+            storages[i] = obj.getString("raktarnev");
         }
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, storages);
